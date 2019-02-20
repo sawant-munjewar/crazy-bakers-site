@@ -7,7 +7,7 @@
   "description": "Crazy bakers app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node menuserver.js",
     "heroku-postbuild": "npm run migrate up -- --no-check-orde && cd client && npm install && npm run build",
     "migrate": "node-pg-migrate"
@@ -18,6 +18,7 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
+    "mocha": "^6.0.0",
     "node-pg-migrate": "^3.16.0",
     "password-generator": "^2.2.0",
     "path": "^0.12.7",
