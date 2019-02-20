@@ -1,0 +1,29 @@
+{
+  "name": "crazy-bakers-app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
+  "description": "Crazy bakers app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node menuserver.js",
+    "heroku-postbuild": "npm run migrate up -- --no-check-orde && cd client && npm install && npm run build",
+    "migrate": "node-pg-migrate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "node-pg-migrate": "^3.16.0",
+    "password-generator": "^2.2.0",
+    "path": "^0.12.7",
+    "pg": "^7.8.0",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "react-bootstrap-table": "^4.3.1",
+    "router": "^1.3.3"
+  }
+}
