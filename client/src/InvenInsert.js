@@ -55,10 +55,24 @@ class InvenInsert extends Component {
           });
   }
 
+  handleSubmitforEdit(event) {
+    fetch('/UpdateInven', {
+            method: 'PUT',
+            headers: { "Content-Type": "application/json" },
+          //  body: JSON.stringify(senddata)
+          })
+          .then(response => {
+            response.json().then(data =>{
+              console.log("Successful" + data);
+            });
+          });
+  }
+
+
   render(){
     return(
 
-  <Form id="frm" onSubmit={this.handleSubmit}>
+  <Form id="frm" onSubmit={this.handleSubmitforEdit}>
     <FormGroup  controlid="InventoryAddForm">
     <h1> <center>Add Inventory </center></h1>
 

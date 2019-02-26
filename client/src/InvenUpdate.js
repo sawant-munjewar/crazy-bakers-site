@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import {  Button,Table, Form, FormGroup} from 'reactstrap';
-import {FormControl} from 'react-bootstrap';
+import {RadioGroup, Radio} from 'react-radio-group';
+import SearchBar from './search.js';
 
 export default class InvenUpdate extends Component {
 
   constructor(props) {
       super(props);
       this.state =  { items: [],
-                      cboxvalue: "select"
+                      selectedOption: "default",
+                       filterText: ""
                     }
       this.setCurrentState = this.setCurrentState.bind(this);
       this.getData = this.getData.bind(this);
@@ -26,11 +28,19 @@ export default class InvenUpdate extends Component {
     ).then( item => this.setCurrentState(item))
     }
 
-    handleChange = (e) => {
-      let itemId = e.target.value;
-      console.log(itemI);
-      this.setState({cboxvalue: itemId});
-   }
+    handleUserInput(filterText) {
+      this.setState({filterText: filterText});
+    };
+
+    handleChange(event) {
+      if(event.target.checked){
+        console.log(event.target.value);
+            this.setState({
+              selectedOption: event.target.value
+            });
+          }
+      }
+
 
 submitClicked(){
 
@@ -39,6 +49,9 @@ submitClicked(){
   render(){
     return(
       <Form>
+
+     <SearchBar filterText={this.state.filterText} onUserInput={this.handleUserInput.bind(this)}/>
+
       <h1><center>View/Update Inventory</center></h1>
           <Table bordered={true}>
             <thead>
@@ -55,16 +68,9 @@ submitClicked(){
                 </tr>
             </thead>
             <tbody>
-                {this.state.items.map((Item: Item) =>
+                {this.state.items.map((Item: item) =>
                     <tr key={Item.Inv_id}>
-                        <td>
-                            <FormControl
-                                type="checkbox"
-                                id="selected"
-                                value={Item.Inv_id}
-                                onChange={e => this.handleChange(e)}
-                            />
-                        </td>
+                        <td><input type="radio" value={Item.Inv_id} onChange={this.handleChange} /></td>
                         <td>{Item.Inv_id}</td>
                         <td>{Item.Inv_name}</td>
                         <td>{Item.Inv_price}</td>
@@ -81,6 +87,7 @@ submitClicked(){
               <Button type="submit" onClick={this.submitClicked}>Edit</Button>
           </FormGroup>
       </Form>
+
     );
   }
 }
