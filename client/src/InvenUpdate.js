@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {  Button,Table, Form, FormGroup} from 'reactstrap';
-import {RadioGroup, Radio} from 'react-radio-group';
+// import {RadioGroup, Radio} from 'react-radio-group';
 import SearchBar from './search.js';
+import InventoryEditForm from './InventoryEditForm.js';
 
 export default class InvenUpdate extends Component {
 
@@ -9,7 +10,8 @@ export default class InvenUpdate extends Component {
       super(props);
       this.state =  { items: [],
                       selectedOption: "default",
-                       filterText: ""
+                       filterText: "",
+                       editItems: []
                     }
       this.setCurrentState = this.setCurrentState.bind(this);
       this.getData = this.getData.bind(this);
@@ -27,23 +29,37 @@ export default class InvenUpdate extends Component {
       fetch('/server').then( response => response.json()
     ).then( item => this.setCurrentState(item))
     }
-
     handleUserInput(filterText) {
       this.setState({filterText: filterText});
     };
-
     handleChange(event) {
       if(event.target.checked){
         console.log(event.target.value);
+        console.log(this.state.items);
+        console.log(this.state.items.filter(item => item.id == event.target.value));
+
             this.setState({
-              selectedOption: event.target.value
+              selectedOption: event.target.value,
+              editItems: this.state.items.filter(item => item.id == event.target.value )
             });
           }
+      }
+    handleSubmitforEdit(event) {
+        fetch('/UpdateInven', {
+                method: 'PUT',
+                headers: { "Content-Type": "application/json" },
+              //  body: JSON.stringify(senddata)
+              })
+              .then(response => {
+                response.json().then(data =>{
+                  console.log("Successful" + data);
+                });
+              });
       }
 
 
 submitClicked(){
-
+this.refs.child.callcase();
 }
 
   render(){
@@ -69,16 +85,16 @@ submitClicked(){
             </thead>
             <tbody>
                 {this.state.items.map((Item: item) =>
-                    <tr key={Item.Inv_id}>
-                        <td><input type="radio" value={Item.Inv_id} onChange={this.handleChange} /></td>
-                        <td>{Item.Inv_id}</td>
-                        <td>{Item.Inv_name}</td>
-                        <td>{Item.Inv_price}</td>
-                        <td>{Item.Inv_weight}</td>
-                        <td>{Item.Inv_type}</td>
-                        <td>{Item.Inv_Quantity}</td>
-                        <td>{Item.Inv_Description}</td>
-                        <td>{Item.Inv_AddedAt}</td>
+                    <tr key={Item.id}>
+                        <td><input type="radio" value={Item.id} onChange={this.handleChange} /></td>
+                        <td>{Item.id}</td>
+                        <td>{Item.name}</td>
+                        <td>{Item.price}</td>
+                        <td>{Item.weight}</td>
+                        <td>{Item.type}</td>
+                        <td>{Item.Quantity}</td>
+                        <td>{Item.Description}</td>
+                        <td>{Item.AddedAt}</td>
                     </tr>
                 )}
             </tbody>
@@ -86,6 +102,8 @@ submitClicked(){
           <FormGroup>
               <Button type="submit" onClick={this.submitClicked}>Edit</Button>
           </FormGroup>
+
+          <InventoryEditForm ref="child"/>
       </Form>
 
     );

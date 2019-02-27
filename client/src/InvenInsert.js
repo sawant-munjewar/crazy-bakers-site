@@ -6,7 +6,6 @@ class InvenInsert extends Component {
 
   constructor(props) {
       super(props);
-
       this.toggle = this.toggle.bind(this);
       this.select = this.select.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,29 +14,26 @@ class InvenInsert extends Component {
         value: "select"
       };
     }
-
     toggle() {
       this.setState(prevState => ({
         dropdownOpen: !prevState.dropdownOpen
       }));
     }
-
     select(event) {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
       value: event.target.innerText
     });
   }
-
-  handleSubmit(event) {
+    handleSubmit(event) {
     event.preventDefault();
     const data = new FormData(event.target);
-    // data.set('Inv_name', data.get('itemNameInput').toUpperCase());
-    // data.set('Inv_price', data.get('itemprice');
-    // data.set('Inv_type', data.get('itemddinput').toUpperCase());
-    // data.set('Inv_weight', data.get('itemWt');
-    // data.set('Inv_Quantity', data.get('itemQuantity');
-    // data.set('Inv_Description', data.get('itemDesc');
+    // data.set('name', data.get('itemNameInput').toUpperCase());
+    // data.set('price', data.get('itemprice');
+    // data.set('type', data.get('itemddinput').toUpperCase());
+    // data.set('weight', data.get('itemWt');
+    // data.set('Quantity', data.get('itemQuantity');
+    // data.set('Description', data.get('itemDesc');
 
     var senddata = [data.get('itemNameInput'),parseFloat(data.get('itemprice')),data.get('itemddinput'),parseFloat(data.get('itemWt')),parseInt(data.get('itemQuantity')),data.get('itemDesc')] ;
 
@@ -54,25 +50,10 @@ class InvenInsert extends Component {
             });
           });
   }
-
-  handleSubmitforEdit(event) {
-    fetch('/UpdateInven', {
-            method: 'PUT',
-            headers: { "Content-Type": "application/json" },
-          //  body: JSON.stringify(senddata)
-          })
-          .then(response => {
-            response.json().then(data =>{
-              console.log("Successful" + data);
-            });
-          });
-  }
-
-
-  render(){
+    render(){
     return(
 
-  <Form id="frm" onSubmit={this.handleSubmitforEdit}>
+  <Form id="frm" onSubmit={this.handleSubmit}>
     <FormGroup  controlid="InventoryAddForm">
     <h1> <center>Add Inventory </center></h1>
 
@@ -97,7 +78,6 @@ class InvenInsert extends Component {
             </Dropdown></td>
 
             <td><Input type="text" readOnly name="itemddinput" id="itemddinput" value={this.state.value} /></td>
-
 
       </tr>
       <tr>

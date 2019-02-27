@@ -13,54 +13,59 @@ app.use(bodyParser.json());
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
-// app.get('/menuserver', function(req, res, next) {
-//   var client = client || new pg.Client(connection_String);
-//   client.connect(function(err) {
-//     if(err) {
-//       return console.error('could not connect to postgres', err);
-//     }
-//     client.query('SELECT * from public."MenuTable"', function(err, result) {
-//       if(err) {
-//         return console.error('error running query', err);
-//       }
-//       console.log(result.rows);
-//       res.json(result.rows);
-//       // client.end();
-//     });
-//   });
-// });
-// app.get('/server', function(req, res, next) {
-//   var client = client || new pg.Client(connection_String);
-//   client.connect(function(err) {
-//     if(err) {
-//       return console.error('could not connect to postgres', err);
-//     }
-//     client.query('SELECT * from public."CrazyBakerSchema.Table_Inventory"', function(err, result) {
-//       if(err) {
-//         return console.error('error running query', err);
-//       }
-//       console.log(result.rows);
-//       res.json(result.rows);
-//       // client.end();
-//     });
-//   });
-// });
-// app.post('/InsertInven', function(req, res, next) {
-//   var client = client || new pg.Client(connection_String);
-//   client.connect(function(err) {
-//     if(err) {
-//       return console.error('could not connect to postgres', err);
-//     }
-//     let querystring = "Insert into public."+"\"CrazyBakerSchema.Table_Inventory\""+"("+"\"Inv_name\","+"\"Inv_price\","+"\"Inv_type\","+"\"Inv_weight\","+"\"Inv_Quantity\","+"\"Inv_Description\") VALUES ";
-//     querystring = querystring + "('"+ req.body[0] +"'"+","+ req.body[1] +",'"+req.body[2]+"',"+req.body[3]+","+req.body[4]+",'"+req.body[5]+"')";
-//     client.query(querystring , function(err, result) {
-//       if(err) {
-//         return console.error('error running query', err);
-//       }
-//       client.end();
-//     });
-//   });
-// });
+
+//get all Table_Menu data
+app.get('/menuserver', function(req, res, next) {
+  var client = client || new pg.Client(connection_String);
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    client.query('SELECT * from public."MenuTable"', function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+      console.log(result.rows);
+      res.json(result.rows);
+      // client.end();
+    });
+  });
+});
+//get all Table_Inventory data
+app.get('/server', function(req, res, next) {
+  var client = client || new pg.Client(connection_String);
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    client.query('SELECT * from public."CrazyBakerSchema.Table_Inventory"', function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+      console.log(result.rows);
+      res.json(result.rows);
+      // client.end();
+    });
+  });
+});
+//insert into Table_Inventory data
+app.post('/InsertInven', function(req, res, next) {
+  var client = client || new pg.Client(connection_String);
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    let querystring = "Insert into public."+"\"CrazyBakerSchema.Table_Inventory\""+"("+"\"name\","+"\"price\","+"\"type\","+"\"weight\","+"\"Quantity\","+"\"Description\") VALUES ";
+    querystring = querystring + "('"+ req.body[0] +"'"+","+ req.body[1] +",'"+req.body[2]+"',"+req.body[3]+","+req.body[4]+",'"+req.body[5]+"')";
+    client.query(querystring , function(err, result) {
+      if(err) {
+        return console.error('error running query', err);
+      }
+      client.end();
+    });
+  });
+});
+//Edit/update into Table_Inventory
 app.put('/UpdateInven', function(req, res, next) {
   var client = client || new pg.Client(connection_String);
   client.connect(function(err) {
@@ -68,11 +73,11 @@ app.put('/UpdateInven', function(req, res, next) {
       return console.error('could not connect to postgres', err);
     }
   //   UPDATE public."CrazyBakerSchema.Table_Inventory"
-	// SET "Inv_name"='Baking soda', "Inv_price"=31.9
-	// WHERE "Inv_id"=1
+	// SET "name"='Baking soda', "price"=31.9
+	// WHERE "id"=1
 
-    let querystring = "UPDATE public."+"\"CrazyBakerSchema.Table_Inventory\""+" SET "+"\"Inv_name\""+"='Baking machine',"+"\"Inv_price\""+"=109.8";
-    querystring = querystring +" WHERE "+ "\"Inv_id\""+"=1";
+    let querystring = "UPDATE public."+"\"CrazyBakerSchema.Table_Inventory\""+" SET "+"\"name\""+"='Baking machine',"+"\"price\""+"=109.8";
+    querystring = querystring +" WHERE "+ "\"id\""+"=1";
     console.log(querystring );
     client.query(querystring , function(err, result) {
       if(err) {
