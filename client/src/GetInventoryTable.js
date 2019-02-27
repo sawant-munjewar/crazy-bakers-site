@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class InvenTable extends Component {
+class GetInventoryTable extends Component {
 
   constructor(props) {
     super(props);
@@ -29,13 +29,13 @@ class InvenTable extends Component {
       return(
              <div>
                     <table border='1'>
-                      <tr> <td>ID</td> <td>Name</td> <td>Inv_InDate</td><td>Inv_Info</td> </tr>
+                      <tr> <td>ID</td> <td>Name</td> <td>InDate</td><td>Info</td> </tr>
                            {this.state.items.map(item =>
                                 <tr>
-                                  <td>{item.Inv_id}</td>
-                                  <td> {item.Inv_name}</td>
-                                  <td>{item.Inv_InDate}</td>
-                                  <td>{item.Inv_Info}</td>
+                                  <td>{item.id}</td>
+                                  <td> {item.name}</td>
+                                  <td>{item.InDate}</td>
+                                  <td>{item.Info}</td>
                                 </tr>
                            )}
                     </table>
@@ -43,4 +43,4 @@ class InvenTable extends Component {
             );
           }
 }
-export default InvenTable;
+export default GetInventoryTable;
