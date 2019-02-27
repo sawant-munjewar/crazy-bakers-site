@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-class InvenTable extends Component {
+class GetInventoryTable extends Component {
 
   constructor(props) {
     super(props);
@@ -43,4 +43,4 @@ class InvenTable extends Component {
             );
           }
 }
-export default InvenTable;
+export default GetInventoryTable;

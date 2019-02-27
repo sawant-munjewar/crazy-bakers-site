@@ -4,7 +4,7 @@ import {  Button,Table, Form, FormGroup} from 'reactstrap';
 import SearchBar from './search.js';
 import InventoryEditForm from './InventoryEditForm.js';
 
-export default class InvenUpdate extends Component {
+export default class InventoryUpdateTable extends Component {
 
   constructor(props) {
       super(props);

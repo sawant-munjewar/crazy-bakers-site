@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Col, Button,Table, Form, FormGroup, Input } from 'reactstrap';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-class InvenInsert extends Component {
+class InventoryInsert extends Component {
 
   constructor(props) {
       super(props);
@@ -109,4 +109,4 @@ class InvenInsert extends Component {
   }
 }
 
-export default InvenInsert;
+export default InventoryInsert;
